@@ -1,0 +1,22 @@
+{% extends 'todo/base.html' %}
+
+{% block content%}
+
+<h1 style="margin-left:5% ;margin-top:1% ;">Current todos</h1>
+
+<br/>
+<div style="margin: auto; width: 90%;">
+        {% for todo in todos %}
+            <a href="{% url 'viewtodo' todo.id %}">
+                {% if todo.important %}<div class="alert alert-danger btn btn-light" style="width:100%;text-align:left;" role="alert">
+                {% else %}<div class="alert alert-primary btn btn-light" style="width:100%;text-align:left;" role="alert">{% endif %} 
+                    {{todo.title}} 
+                    {% if todo.memo %} - {{ todo.memo }} {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+</div>
+
+
+
+{% endblock %}

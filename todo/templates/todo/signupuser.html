@@ -1,0 +1,36 @@
+{% extends 'todo/base.html' %}
+{% load crispy_forms_tags %}
+{% block content%}
+
+<style>
+    #hint_id_username{display: none;}
+    #hint_id_password1{display: none;}
+    #hint_id_password2{display: none;}
+    .asteriskField{display: none;}
+</style>
+
+<div style="margin: auto;margin-top: 1%;  max-width: 30%; min-width: 320px;width: auto; text-align: center; border:solid 2px #cccccc;border-radius: 20px;">
+    <div style="margin: auto; width: 80%;">
+
+        <h1 style="margin-top:1% ;">Sign Up</h1>
+
+        <h2>{{ error }}</h2>
+
+        
+        <form method="POST" class="uniForm">
+            {% csrf_token %}
+            
+            {{form|crispy }}
+            
+        
+        <button class="btn btn-success" type="submit" style="margin-bottom: 5%;">Sign Up</button>
+        </form>
+
+    </div>  
+</div>
+
+
+{% endblock %}
+
+
+

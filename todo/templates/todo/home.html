@@ -1,0 +1,21 @@
+{% extends 'todo/base.html' %}
+
+{% block content%}
+
+<div style="margin: auto;margin-top: 1%; max-width: 60%; min-width: 320px;width: auto; text-align: center; border:solid 2px #cccccc;border-radius: 20px;">
+    <div style="margin: auto; width: 80%; padding-bottom: 2%;">
+
+        <h1 style="margin-top:2%;">Welcome to <b><span style="color:#769bff;">Todo Boo</span></b></h1>
+        <br/>
+        <h5>Is is a place where You can pan your life. This web app was build on Django in educational purpouses.</h5>
+        <br>
+        <h5>If You want to use it just</h5>
+
+            <a style="margin-right: 10px;" href="{% url 'loginuser' %}"> <button class="btn btn-primary">Login</button></a>
+            <h5 style="display: inline;">or</h5>
+            <a style="margin-left: 10px;" href="{% url 'signupuser' %}"> <button class="btn btn-info">Sign Up</button></a>
+ 
+    </div>  
+</div>
+
+{% endblock %}

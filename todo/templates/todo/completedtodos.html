@@ -1,0 +1,24 @@
+{% extends 'todo/base.html' %}
+
+{% block content%}
+
+<h1 style="margin-left:5% ;margin-top:1% ;">Completed todos</h1>
+<br/>
+
+
+<div style="margin: auto; width: 90%;" >
+    {% for todo in todos %}
+    <form method="POST" action="{% url 'deletetodo' todo.id %}">
+            {% if todo.important %}<div class="alert alert-danger btn btn-light" style="width:100%;text-align:left;" role="alert">
+            {% else %}<div class="alert alert-primary btn btn-light" style="width:100%;text-align:left;" role="alert">{% endif %} 
+                {{todo.title}} 
+                | 
+                {{ todo.datecompleted|date:'M j Y H:i' }}
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </div>  
+    </form>
+    {% endfor %}
+</div>
+
+{% endblock %}
