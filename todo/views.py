@@ -16,7 +16,7 @@ def home(request):
 
 def signupuser(request):
     if request.method == "GET":
-        return render(request, 'todo/signupuser.html', {'form':UserCreationForm()})
+        return render(request, 'todo/loginuser.html', {'form':UserCreationForm(), 'type':"Sign up"})
 
     else:
         if request.POST['password1'] == request.POST['password2']:
@@ -26,21 +26,21 @@ def signupuser(request):
                 login(request, user)
                 return redirect('currenttodos')
             except IntegrityError:
-                return render(request, 'todo/signupuser.html', {'form':UserCreationForm(), 'error':'Username is already in use. Please choose new username'})
+                return render(request, 'todo/loginuser.html', {'form':UserCreationForm(), 'error':'Username is already in use. Please choose new username', 'type':"Sign up"})
             except:
-                return render(request, 'todo/signupuser.html', {'form':UserCreationForm(), 'error':'Something gone wrong. Please try again.'})
+                return render(request, 'todo/loginuser.html', {'form':UserCreationForm(), 'error':'Something gone wrong. Please try again.', 'type':"Sign up"})
         else:
-            return render(request, 'todo/signupuser.html', {'form':UserCreationForm(), 'error':'Passwords did not match.'})
+            return render(request, 'todo/loginuser.html', {'form':UserCreationForm(), 'error':'Passwords did not match.', 'type':"Sign up"})
 
 
 def loginuser(request):
     if request.method == "GET":
-        return render(request, 'todo/loginuser.html', {'form':AuthenticationForm()})
+        return render(request, 'todo/loginuser.html', {'form':AuthenticationForm(), 'type':"Log in"})
     else:
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'todo/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match.'})
-            
+            return render(request, 'todo/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match.', 'type':"Log in"})
+
         else:
             login(request, user)
             return redirect('currenttodos')
@@ -75,7 +75,7 @@ def completedtodos(request):
     todos = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
     return render(request, 'todo/completedtodos.html', {'todos':todos})
 
-@login_required    
+@login_required
 def viewtodo(request,todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'GET':
@@ -108,4 +108,3 @@ def deletetodo(request,todo_pk):
         else:
             todo.delete()
             return redirect('completedtodos')
-        
